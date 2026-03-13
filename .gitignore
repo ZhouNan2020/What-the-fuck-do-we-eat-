@@ -5,6 +5,8 @@
 *.so
 *.dylib
 what-the-fuck-do-we-eat-
+What-the-fuck-do-we-eat-
+server
 
 # Test binary
 *.test

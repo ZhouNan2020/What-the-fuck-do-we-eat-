@@ -80,6 +80,7 @@ func setClickCount(w http.ResponseWriter, count int) {
 		Path:     "/",
 		MaxAge:   3600,
 		HttpOnly: true,
+		Secure:   true,
 		SameSite: http.SameSiteStrictMode,
 	})
 }

@@ -1,0 +1,24 @@
+# Go build artifacts
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+what-the-fuck-do-we-eat-
+
+# Test binary
+*.test
+
+# Go coverage
+*.out
+*.prof
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db

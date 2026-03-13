@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: what-the-fuck-do-we-eat
+    runtime: go
+    buildCommand: go build -o app .
+    startCommand: ./app
+    healthCheckPath: /
+    autoDeploy: true
+    envVars:
+      - key: GO_VERSION
+        value: 1.24.1

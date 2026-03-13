@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{.Title}}</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans SC", sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .container {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 60px 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 500px;
+            width: 90%;
+        }
+        h1 {
+            font-size: 2.2em;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        h2.subtitle {
+            font-size: 1.3em;
+            color: #666;
+            margin-bottom: 40px;
+        }
+        .btn {
+            width: 300px;
+            height: 80px;
+            font-size: 24px;
+            font-weight: bold;
+            color: #fff;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        }
+        .btn:active {
+            transform: translateY(0);
+        }
+        .result {
+            font-size: 2em;
+            font-weight: bold;
+            color: #764ba2;
+            margin-top: 30px;
+            animation: fadeIn 0.5s ease-in;
+        }
+        .too-many {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #e74c3c;
+            margin-top: 20px;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .spinner-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        .spinner-overlay.active {
+            display: flex;
+        }
+        .spinner {
+            width: 60px;
+            height: 60px;
+            border: 6px solid rgba(255, 255, 255, 0.3);
+            border-top-color: #fff;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+        .spinner-text {
+            color: #fff;
+            font-size: 1.3em;
+            margin-top: 20px;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>{{.Title}}</h1>
+        <h2 class="subtitle">{{.Subtitle}}</h2>
+
+        {{if .TooMany}}
+            <p class="too-many">吃个锤子吃，你狗东西就是不饿</p>
+        {{else if .Clicked}}
+            <p class="result">{{.Result}}</p>
+            {{if .ShowButton}}
+            <form method="POST" action="/pick" style="margin-top: 30px;" onsubmit="showSpinner()">
+                <button type="submit" class="btn">再来一次</button>
+            </form>
+            {{end}}
+        {{else if .ShowButton}}
+            <form method="POST" action="/pick" onsubmit="showSpinner()">
+                <button type="submit" class="btn">开始</button>
+            </form>
+        {{end}}
+    </div>
+
+    <div class="spinner-overlay" id="spinner">
+        <div class="spinner"></div>
+        <p class="spinner-text">爸爸帮你想，爸爸帮你挑~</p>
+    </div>
+
+    <script>
+        function showSpinner() {
+            document.getElementById('spinner').classList.add('active');
+        }
+    </script>
+</body>
+</html>
